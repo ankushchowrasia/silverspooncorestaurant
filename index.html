@@ -218,9 +218,25 @@
         /* --- FEATURES GRID --- */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+            grid-template-columns: repeat(3, 1fr); /* Desktop: 3 cards per row */
             gap: 1.5rem;
             margin-top: 3.5rem;
+        }
+        
+        /* Tablet Layout */
+        @media (max-width: 1023px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr); /* Tablet: 2 cards per row */
+            }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 767px) {
+            .features-grid {
+                grid-template-columns: 1fr; /* Mobile: 1 card per row */
+                gap: 1rem;
+                margin-top: 2rem;
+            }
         }
         
         .feature-card {
@@ -582,6 +598,13 @@
             }
         }
 
+        /* HERO HEADING MOBILE FIX */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem !important; /* ~32px to fit screen */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -825,8 +848,8 @@
         <div class="blob blob-2"></div>
         <div class="container" style="position: relative; z-index: 10;">
             <div class="pill-badge">Time : 10 am to 11 pm</div>
-            <h1 class="font-heading font-bold" style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
-                Welcome to <br> <span style="background: linear-gradient(to right, #ea580c, #dc2626); -webkit-background-clip: text; color: transparent;">Silver Spoon .Co</span>
+            <h1 class="font-heading font-bold hero-title" style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
+                Welcome to <br> <span style="background: linear-gradient(to right, #ea580c, #dc2626); -webkit-background-clip: text; color: transparent; white-space: nowrap;">Silver Spoon .Co</span>
             </h1>
             <p style="font-size: 1.5rem; font-family: var(--font-heading); color: black; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.4;">
                 Experience the finest culinary delights crafted with passion, served with excellence, and delivered with love.
@@ -1417,12 +1440,8 @@
             const price = calculateFinalPrice(item.price, item.discountPercent);
             
             document.getElementById('modal-img').src = item.image;
-            
-            // Update Logic for badges in new location
-            const vegBadge = document.getElementById('modal-veg-badge');
-            vegBadge.className = `veg-badge ${item.isVeg ? 'bg-veg' : 'bg-nonveg'}`;
-            vegBadge.innerHTML = `<div class="dot ${item.isVeg ? 'dot-veg' : 'dot-nonveg'}"></div> ${item.isVeg ? 'Veg' : 'Non-Veg'}`;
-            
+            document.getElementById('modal-veg-badge').className = `veg-badge ${item.isVeg ? 'bg-veg' : 'bg-nonveg'}`;
+            document.getElementById('modal-veg-badge').innerHTML = `<div class="dot ${item.isVeg ? 'dot-veg' : 'dot-nonveg'}"></div> ${item.isVeg ? 'Veg' : 'Non-Veg'}`;
             document.getElementById('modal-rating').innerText = item.rating;
             document.getElementById('modal-cat').innerText = item.category;
             document.getElementById('modal-title').innerText = item.name;
