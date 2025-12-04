@@ -49,6 +49,10 @@
             --primary-light: rgba(234, 88, 12, 0.1);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -211,6 +215,68 @@
         }
         .btn-outline:hover { background: var(--primary-light); }
 
+        /* --- FEATURES GRID --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--primary);
+            color: white;
+        }
+
+        .feature-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
         /* --- FILTERS & MENU --- */
         .filters-container {
             background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg);
@@ -303,7 +369,7 @@
             background: var(--primary-light);
         }
 
-        /* --- CART & MENU SIDEBAR --- */
+        /* --- CART SIDEBAR --- */
         .cart-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
@@ -476,6 +542,31 @@
                 background-size: cover;
                 opacity: 0.15;
             }
+            
+            /* Mobile Optimization for Features Grid */
+            .features-grid {
+                gap: 0.5rem;
+                margin-top: 2rem;
+            }
+            .feature-card {
+                padding: 1rem 0.25rem; /* Reduced padding */
+                border-radius: var(--radius-md);
+            }
+            .feature-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+                margin-bottom: 0.5rem;
+                font-size: 1.25rem;
+            }
+            .feature-title {
+                font-size: 0.85rem; /* Smaller title */
+                margin-bottom: 0.25rem;
+                line-height: 1.1;
+            }
+            .feature-desc {
+                font-size: 0.65rem; /* Smaller desc */
+                line-height: 1.2;
+            }
         }
 
     </style>
@@ -634,6 +725,7 @@
         </div>
         <div class="cart-items" style="display: flex; flex-direction: column; gap: 1rem; padding-top: 2rem;">
             <a href="#" class="nav-item-btn">Home</a>
+            <a href="#about" class="nav-item-btn">About Us</a>
             <a href="#menu" class="nav-item-btn">Our Menu</a>
             <button id="mobile-book-btn" class="nav-item-btn">Book a Table</button>
         </div>
@@ -727,6 +819,44 @@
             <div class="flex justify-center gap-4">
                 <a href="#menu" class="btn-primary" style="text-decoration: none;">Explore Menu</a>
                 <button id="btn-book-table" class="btn-outline">Book a Table</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" style="padding: 4rem 0; background-color: var(--bg-card);">
+        <div class="container">
+            <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <h2 class="font-heading font-bold" style="font-size: 2.5rem; margin-bottom: 1.5rem;">About Us</h2>
+                <p class="text-muted" style="font-size: 1.1rem; line-height: 1.8; font-family: 'Times New Roman', serif;">
+                    At Silver Spoon .Co, we believe dining is not just about food, but an experience. Established in 2025, we bring you a fusion of tradition and innovation. What sets us apart is our unwavering commitment to quality—sourcing the freshest local ingredients to craft dishes that tell a story. Our expert chefs pour their passion into every plate, ensuring that whether you're here for a quick bite or a celebratory feast, every moment is memorable. Experience the perfect blend of ambiance, hospitality, and culinary excellence that makes us the city's premier fine dining destination.
+                </p>
+
+                <!-- 3 Points / Features Cards -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="feature-title">High Quality</h3>
+                        <p class="feature-desc">Fresh, organic ingredients sourced daily.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m2 12 5.25 9"/><path d="m22 12-5.25 9"/></svg>
+                        </div>
+                        <h3 class="feature-title">Expert Chefs</h3>
+                        <p class="feature-desc">Masters of culinary arts and flavors.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3 class="feature-title">Fast Service</h3>
+                        <p class="feature-desc">Delicious food served hot and on time.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -829,6 +959,7 @@
                     <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Quick Links</h4>
                     <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
                         <li><a href="#" style="color: inherit; text-decoration: none;">Home</a></li>
+                        <li><a href="#about" style="color: inherit; text-decoration: none;">About Us</a></li>
                         <li><a href="#menu" style="color: inherit; text-decoration: none;">Menu</a></li>
                         <li><a href="#" id="footer-book-btn" style="color: inherit; text-decoration: none;">Book a Table</a></li>
                     </ul>
