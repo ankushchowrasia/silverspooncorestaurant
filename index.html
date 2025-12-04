@@ -9,7 +9,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Changed Playfair Display to Cormorant Garamond for a more premium look -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS VARIABLES & RESET --- */
@@ -32,7 +33,8 @@
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-full: 9999px;
-            --font-heading: 'Playfair Display', serif;
+            /* Updated Heading Font */
+            --font-heading: 'Cormorant Garamond', serif;
             --font-body: 'Inter', sans-serif;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -92,7 +94,6 @@
             border-bottom: 1px solid var(--border);
             transition: background-color 0.3s;
         }
-        html.dark header { background-color: rgba(15, 23, 42, 0.9); }
 
         .header-content { padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; }
         
@@ -115,7 +116,6 @@
 
         .icon-btn { padding: 0.5rem; border-radius: 50%; transition: background 0.2s; color: var(--text-main); }
         .icon-btn:hover { background-color: rgba(0,0,0,0.05); }
-        html.dark .icon-btn:hover { background-color: rgba(255,255,255,0.1); }
 
         .cart-btn { position: relative; background: var(--primary); color: white; padding: 0.5rem; border-radius: 50%; transition: transform 0.2s; }
         .cart-btn:hover { background: var(--primary-hover); }
@@ -129,16 +129,63 @@
         /* --- HERO --- */
         .hero {
             position: relative;
-            padding: 5rem 0;
+            padding: 6rem 0; /* Slightly increased padding */
             text-align: center;
             overflow: hidden;
             background: linear-gradient(to bottom right, #fff7ed, #ffffff);
         }
-        html.dark .hero { background: linear-gradient(to bottom right, #0f172a, #1e293b); }
+
+        /* Animated Background Shape */
+        .hero-shape {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://raw.githubusercontent.com/ankushchowrasia/silverspooncorestaurent/482229fc402b18fd080666054f85fbc9de0ef6d8/shape-5.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 1;
+            pointer-events: none;
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        /* Hero Particles (Bottom Right) */
+        .hero-particles {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 350px;
+            height: 350px;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 5s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100px) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(30px, -30px) rotate(5deg) scale(1.1); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.95); }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        }
 
         .blob {
             position: absolute; border-radius: 50%; filter: blur(3rem); opacity: 0.2; pointer-events: none;
             animation: float 20s ease-in-out infinite;
+            z-index: 0;
         }
         .blob-1 { top: 5rem; right: 2rem; width: 16rem; height: 16rem; background: var(--primary); }
         .blob-2 { bottom: 5rem; left: 2rem; width: 20rem; height: 20rem; background: var(--danger); animation-delay: 2s; }
@@ -180,14 +227,12 @@
         }
         .cat-btn.active { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
         .cat-btn:hover:not(.active) { background: #e2e8f0; }
-        html.dark .cat-btn:hover:not(.active) { background: #334155; }
 
         .control-group { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
         
         .toggle-group { background: var(--bg-body); padding: 0.25rem; border-radius: var(--radius-md); display: flex; border: 1px solid var(--border); }
         .toggle-btn { padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
         .toggle-btn.active { background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm); }
-        html.dark .toggle-btn.active { background: #334155; }
 
         select { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border); padding: 0.5rem; border-radius: var(--radius-md); outline: none; }
 
@@ -258,7 +303,7 @@
             background: var(--primary-light);
         }
 
-        /* --- CART SIDEBAR --- */
+        /* --- CART & MENU SIDEBAR --- */
         .cart-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
@@ -289,6 +334,26 @@
         .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
         .coupon-input { flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-md); text-transform: uppercase; }
         .btn-apply { background: #334155; color: white; padding: 0 1rem; border-radius: var(--radius-md); font-size: 0.875rem; }
+
+        /* Nav Item Buttons for Mobile Menu */
+        .nav-item-btn {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s;
+            background: none;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+        }
+        .nav-item-btn:hover {
+            color: var(--primary);
+            background: var(--bg-body);
+        }
 
         /* --- BOOKING & CHECKOUT PAGES --- */
         .booking-page {
@@ -384,10 +449,33 @@
             animation: shake 0.5s ease-in-out;
         }
 
+        /* Social Buttons in Footer */
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .social-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .filters-container { flex-direction: column; }
             .control-group { flex-direction: column; align-items: stretch; }
             .form-row { flex-direction: column; }
+            .hero-shape {
+                background-size: cover;
+                opacity: 0.15;
+            }
         }
 
     </style>
@@ -538,6 +626,19 @@
         </div>
     </aside>
 
+    <!-- MOBILE MENU SIDEBAR -->
+    <aside id="mobile-menu-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2 class="font-heading font-bold" style="font-size: 1.25rem;">Navigation</h2>
+            <button id="close-mobile-menu" class="icon-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        </div>
+        <div class="cart-items" style="display: flex; flex-direction: column; gap: 1rem; padding-top: 2rem;">
+            <a href="#" class="nav-item-btn">Home</a>
+            <a href="#menu" class="nav-item-btn">Our Menu</a>
+            <button id="mobile-book-btn" class="nav-item-btn">Book a Table</button>
+        </div>
+    </aside>
+
     <!-- DISH DETAIL MODAL -->
     <div id="modal-overlay" class="modal-overlay-bg">
         <div class="modal-card">
@@ -586,29 +687,33 @@
     <header>
         <div class="container header-content">
             <a href="#" class="flex items-center gap-2" style="text-decoration: none; color: inherit;">
-                <div class="logo-box">S</div>
+                <img src="https://raw.githubusercontent.com/ankushchowrasia16/Silverspoon.co-restaurant/b38e5d5cb3f1ab03df211b677de5a6ce902e3338/silverspoon.cofavicon.png" alt="Silver Spoon Logo" style="width: 2.5rem; height: 2.5rem; object-fit: contain;">
                 <div>
-                    <h1 class="font-heading font-bold" style="font-size: 1.5rem;">Silver Spoon <span class="text-primary">.Co</span></h1>
+                    <h1 class="font-heading font-bold" style="font-size: 1.5rem;"> Silver Spoon <span class="text-primary">. Co</span></h1>
                 </div>
             </a>
 
-            <!-- Removed Top Search Bar -->
-
             <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="icon-btn">
-                    <!-- Sun/Moon Icon swapped by JS -->
-                    <svg class="sun-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41-1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                </button>
                 <button id="cart-toggle" class="cart-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                     <div id="cart-count" class="cart-badge hidden">0</div>
+                </button>
+                <button id="menu-toggle" class="icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </button>
             </div>
         </div>
     </header>
 
     <section class="hero">
+        <div class="hero-shape"></div>
+        <div class="hero-particles">
+            <div class="particle" style="width: 10px; height: 10px; left: 10%; bottom: 10%; animation-duration: 3s; animation-delay: 0s;"></div>
+            <div class="particle" style="width: 15px; height: 15px; left: 30%; bottom: 20%; animation-duration: 5s; animation-delay: 1s;"></div>
+            <div class="particle" style="width: 8px; height: 8px; left: 50%; bottom: 5%; animation-duration: 4s; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 12px; height: 12px; left: 70%; bottom: 30%; animation-duration: 6s; animation-delay: 0.5s;"></div>
+            <div class="particle" style="width: 6px; height: 6px; left: 80%; bottom: 10%; animation-duration: 3.5s; animation-delay: 1.5s;"></div>
+        </div>
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="container" style="position: relative; z-index: 10;">
@@ -616,7 +721,7 @@
             <h1 class="font-heading font-bold" style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
                 Welcome to <br> <span style="background: linear-gradient(to right, #ea580c, #dc2626); -webkit-background-clip: text; color: transparent;">Silver Spoon .Co</span>
             </h1>
-            <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem;">
+            <p style="font-size: 1.5rem; font-family: var(--font-heading); color: black; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.4;">
                 Experience the finest culinary delights crafted with passion, served with excellence, and delivered with love.
             </p>
             <div class="flex justify-center gap-4">
@@ -705,7 +810,20 @@
                         <div class="logo-box">S</div>
                         <h3 class="font-heading font-bold" style="font-size: 1.25rem;">Silver Spoon <span class="text-primary">.Co</span></h3>
                     </div>
-                    <p class="text-sm">Elevating your dining experience with flavors that tell a story.</p>
+                    <p class="text-sm" style="margin-bottom: 1.5rem;">Elevating your dining experience with flavors that tell a story.</p>
+                    
+                    <!-- Social Media Links -->
+                    <div style="display: flex; gap: 0.75rem;">
+                        <a href="https://www.facebook.com/profile.php?id=100074737849819" target="_blank" class="social-btn" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ankushchowrasia27/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="https://github.com/ankushchowrasia/silverspooncorestaurent" target="_blank" class="social-btn" aria-label="GitHub">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                        </a>
+                    </div>
                 </div>
                 <div>
                     <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Quick Links</h4>
@@ -824,7 +942,7 @@
                 price: 260,
                 discountPercent: 5,
                 category: "Main Course",
-                image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&h=400&fit=crop",
+                image: "https://raw.githubusercontent.com/ankushchowrasia/silverspooncorestaurent/482229fc402b18fd080666054f85fbc9de0ef6d8/images.webp",
                 isVeg: true,
                 isSpecial: false,
                 rating: 4.6,
@@ -1232,6 +1350,8 @@
         function setupBooking() {
             const btnBook = document.getElementById('btn-book-table');
             const footerBtnBook = document.getElementById('footer-book-btn');
+            const mobileBtnBook = document.getElementById('mobile-book-btn');
+            
             const pageBook = document.getElementById('booking-page');
             const btnBack = document.getElementById('btn-back-home');
             const formBook = document.getElementById('booking-form');
@@ -1241,10 +1361,14 @@
                 if (e) e.preventDefault();
                 pageBook.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
+                if(document.getElementById('mobile-menu-sidebar').classList.contains('open')) {
+                    closeMobileMenu();
+                }
             };
 
             if(btnBook) btnBook.addEventListener('click', openBookingPage);
             if(footerBtnBook) footerBtnBook.addEventListener('click', openBookingPage);
+            if(mobileBtnBook) mobileBtnBook.addEventListener('click', openBookingPage);
 
             if(btnBack) {
                 btnBack.addEventListener('click', () => {
@@ -1325,11 +1449,48 @@
             }
         }
 
+        // --- MOBILE MENU LOGIC ---
+        function setupMobileMenu() {
+            const btnMenu = document.getElementById('menu-toggle');
+            const sidebarMenu = document.getElementById('mobile-menu-sidebar');
+            const overlay = document.getElementById('cart-overlay'); // Reuse cart overlay
+            const btnClose = document.getElementById('close-mobile-menu');
+            
+            // Add click handler to overlay for menu too (it already closes cart)
+            // We need to modify closeCart to also close Menu
+            
+            window.openMobileMenu = () => {
+                overlay.classList.add('open');
+                sidebarMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            window.closeMobileMenu = () => {
+                overlay.classList.remove('open');
+                sidebarMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            if(btnMenu) btnMenu.addEventListener('click', openMobileMenu);
+            if(btnClose) btnClose.addEventListener('click', closeMobileMenu);
+            
+            // Update overlay click to close menu too
+            overlay.addEventListener('click', closeMobileMenu);
+
+            // Nav Links
+            document.querySelectorAll('.nav-item-btn').forEach(link => {
+                if(link.tagName === 'A') {
+                    link.addEventListener('click', closeMobileMenu);
+                }
+            });
+        }
+
         // --- EVENT LISTENERS ---
 
         function setupEventListeners() {
             setupBooking();
             setupCheckout();
+            setupMobileMenu();
 
             // Category Filters
             document.querySelectorAll('.cat-btn').forEach(btn => {
@@ -1405,12 +1566,15 @@
             document.getElementById('apply-coupon').addEventListener('click', applyCoupon);
 
             // Dark Mode
+            // Disabled dark mode switch as requested
+            /*
             els.themeToggle.addEventListener('click', () => {
                 els.html.classList.toggle('dark');
                 const isDark = els.html.classList.contains('dark');
                 els.themeToggle.querySelector('.sun-icon').classList.toggle('hidden', !isDark);
                 els.themeToggle.querySelector('.moon-icon').classList.toggle('hidden', isDark);
             });
+            */
         }
 
         // Initialize
