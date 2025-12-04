@@ -1,281 +1,1140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
-  <meta charset="UTF-8" />
-  <title>Silver Spoon .Co</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silver Spoon .Co | Fine Dining</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/ankushchowrasia16/Silverspoon.co-restaurant/b38e5d5cb3f1ab03df211b677de5a6ce902e3338/silverspoon.cofavicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
-  <link rel="icon" href="https://raw.githubusercontent.com/ankushchowrasia16/Silverspoon.co-restaurant/b38e5d5cb3f1ab03df211b677de5a6ce902e3338/silverspoon.cofavicon.png" />
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #ea580c; /* Orange-600 */
+            --primary-hover: #c2410c;
+            --primary-light: #fff7ed;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc; /* Gray-50 */
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-full: 9999px;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        /* Dark Mode Variables */
+        html.dark {
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --bg-body: #0f172a; /* Slate-900 */
+            --bg-card: #1e293b; /* Slate-800 */
+            --border: #334155;
+            --primary-light: rgba(234, 88, 12, 0.1);
+        }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.5;
+        }
+
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+        img { max-width: 100%; display: block; }
+        
+        /* Utility Classes Recreating Tailwind */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .font-heading { font-family: var(--font-heading); }
+        .text-primary { color: var(--primary); }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .rounded-full { border-radius: var(--radius-full); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+        .transition { transition: var(--transition); }
+        
+        /* --- HEADER --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.3s;
+        }
+        html.dark header { background-color: rgba(15, 23, 42, 0.9); }
+
+        .header-content { padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-box { width: 2.5rem; height: 2.5rem; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; }
+        
+        .search-bar { position: relative; max-width: 28rem; flex: 1; margin: 0 2rem; }
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            background: var(--bg-body);
+            color: var(--text-main);
+            outline: none;
+        }
+        .search-input:focus { border-color: var(--primary); ring: 2px var(--primary); }
+        .search-icon { position: absolute; left: 0.75rem; top: 0.6rem; color: var(--text-muted); width: 1.1rem; }
+
+        .icon-btn { padding: 0.5rem; border-radius: 50%; transition: background 0.2s; color: var(--text-main); }
+        .icon-btn:hover { background-color: rgba(0,0,0,0.05); }
+        html.dark .icon-btn:hover { background-color: rgba(255,255,255,0.1); }
+
+        .cart-btn { position: relative; background: var(--primary); color: white; padding: 0.5rem; border-radius: 50%; transition: transform 0.2s; }
+        .cart-btn:hover { background: var(--primary-hover); }
+        .cart-badge { 
+            position: absolute; top: -4px; right: -4px; background: var(--danger); color: white; 
+            font-size: 10px; font-weight: bold; width: 1.25rem; height: 1.25rem; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--bg-body);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            position: relative;
+            padding: 5rem 0;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #fff7ed, #ffffff);
+        }
+        html.dark .hero { background: linear-gradient(to bottom right, #0f172a, #1e293b); }
+
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(3rem); opacity: 0.2; pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+        .blob-1 { top: 5rem; right: 2rem; width: 16rem; height: 16rem; background: var(--primary); }
+        .blob-2 { bottom: 5rem; left: 2rem; width: 20rem; height: 20rem; background: var(--danger); animation-delay: 2s; }
+
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .pill-badge {
+            display: inline-block; padding: 0.25rem 1rem; border-radius: var(--radius-full);
+            background: var(--primary-light); color: var(--primary); border: 1px solid rgba(234,88,12,0.2);
+            font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary); color: white; padding: 0.75rem 2rem; border-radius: var(--radius-lg);
+            font-weight: 600; box-shadow: 0 4px 14px 0 rgba(234, 88, 12, 0.39);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        
+        .btn-outline {
+            border: 2px solid var(--primary); color: var(--primary); padding: 0.75rem 2rem; 
+            border-radius: var(--radius-lg); font-weight: 600; transition: background 0.2s;
+        }
+        .btn-outline:hover { background: var(--primary-light); }
+
+        /* --- FILTERS & MENU --- */
+        .filters-container {
+            background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg);
+            border: 1px solid var(--border); margin-bottom: 2.5rem;
+            display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        
+        .filter-cats { display: flex; overflow-x: auto; gap: 0.5rem; padding-bottom: 0.5rem; }
+        .filter-cats::-webkit-scrollbar { display: none; }
+        
+        .cat-btn {
+            white-space: nowrap; padding: 0.5rem 1rem; border-radius: var(--radius-lg); font-size: 0.875rem; font-weight: 500;
+            background: var(--bg-body); color: var(--text-muted); transition: all 0.2s;
+        }
+        .cat-btn.active { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
+        .cat-btn:hover:not(.active) { background: #e2e8f0; }
+        html.dark .cat-btn:hover:not(.active) { background: #334155; }
+
+        .control-group { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+        
+        .toggle-group { background: var(--bg-body); padding: 0.25rem; border-radius: var(--radius-md); display: flex; border: 1px solid var(--border); }
+        .toggle-btn { padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+        .toggle-btn.active { background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm); }
+        html.dark .toggle-btn.active { background: #334155; }
+
+        select { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border); padding: 0.5rem; border-radius: var(--radius-md); outline: none; }
+
+        /* --- GRID & CARDS --- */
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
+        }
+
+        .menu-card {
+            background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: var(--shadow-md); border: 1px solid var(--border);
+            display: flex; flex-direction: column; transition: transform 0.3s;
+            position: relative;
+        }
+        .menu-card:hover { transform: translateY(-5px); }
+
+        .card-img-wrap { height: 12rem; position: relative; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .menu-card:hover .card-img { transform: scale(1.1); }
+
+        .veg-badge {
+            position: absolute; top: 0.5rem; left: 0.5rem; padding: 0.25rem 0.5rem;
+            border-radius: 4px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        .bg-veg { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
+        .bg-nonveg { background: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-veg { background: var(--success); }
+        .dot-nonveg { background: var(--danger); }
+
+        .discount-badge {
+            position: absolute; top: 0.5rem; right: 0.5rem; background: var(--danger); color: white;
+            padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;
+        }
+
+        .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+        .card-cat { color: var(--primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .card-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; }
+        .card-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .card-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .price-orig { font-size: 0.75rem; text-decoration: line-through; color: var(--text-muted); }
+        .price-final { font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
+
+        .btn-add { 
+            background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: var(--radius-lg); 
+            font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem;
+            transition: transform 0.1s;
+        }
+        .btn-add:active { transform: scale(0.95); }
+
+        /* --- CART SIDEBAR --- */
+        .cart-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .cart-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .cart-sidebar {
+            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 400px;
+            background: var(--bg-card); box-shadow: -10px 0 25px rgba(0,0,0,0.1); z-index: 60;
+            transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-sidebar.open { transform: translateX(0); }
+
+        .cart-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .cart-items { flex: 1; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+        
+        .cart-item { display: flex; gap: 1rem; animation: fadeIn 0.3s ease; }
+        .cart-img { width: 4rem; height: 4rem; border-radius: 0.5rem; object-fit: cover; }
+        .qty-control { display: flex; align-items: center; gap: 0.5rem; background: var(--bg-body); border: 1px solid var(--border); padding: 0.25rem; border-radius: 0.5rem; }
+        .qty-btn { width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; background: var(--bg-card); border-radius: 4px; }
+        
+        .cart-footer { padding: 1.25rem; background: var(--bg-body); border-top: 1px solid var(--border); }
+        .summary-row { display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--text-muted); }
+        .text-green { color: var(--success); }
+        .total-row { font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+
+        .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .coupon-input { flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-md); text-transform: uppercase; }
+        .btn-apply { background: #334155; color: white; padding: 0 1rem; border-radius: var(--radius-md); font-size: 0.875rem; }
+
+        /* --- MODAL --- */
+        .modal-overlay-bg {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 90;
+            display: flex; justify-content: center; align-items: center; padding: 1rem;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal-overlay-bg.open { opacity: 1; pointer-events: auto; }
+
+        .modal-card {
+            background: var(--bg-card); width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
+            border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s;
+        }
+        .modal-overlay-bg.open .modal-card { transform: scale(1); }
+        @media (min-width: 768px) { .modal-card { flex-direction: row; } }
+
+        .modal-img-col { flex: 1; min-height: 300px; position: relative; }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-content-col { flex: 1; padding: 2rem; display: flex; flex-direction: column; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Added to Cart Animations */
+        @keyframes floatUpFade {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-4px) rotate(-4deg); }
+            40% { transform: translateX(4px) rotate(4deg); }
+            60% { transform: translateX(-2px) rotate(-2deg); }
+            80% { transform: translateX(2px) rotate(2deg); }
+        }
+
+        .added-feedback {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            background: var(--bg-card);
+            color: var(--success);
+            border: 1px solid var(--success);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: floatUpFade 0.8s ease-out forwards;
+        }
+
+        .cart-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar { display: none; } /* Simplified mobile view */
+            .mobile-search { display: block; margin: 1rem; }
+            .filters-container { flex-direction: column; }
+            .control-group { flex-direction: column; align-items: stretch; }
+        }
+        @media (min-width: 769px) { .mobile-search { display: none; } }
+
+    </style>
 </head>
 <body>
 
-  <!-- Cart Sidebar -->
-  <div id="cart-overlay" class="overlay hidden"></div>
-  <aside id="cart-sidebar" class="cart-sidebar hidden"></aside>
-
-  <!-- Dish Detail Modal -->
-  <div id="dish-modal-overlay" class="overlay hidden"></div>
-  <div id="dish-modal" class="dish-modal hidden"></div>
-
-  <!-- Page Wrapper -->
-  <div class="page-wrapper">
-
-    <!-- Header -->
-    <header class="header">
-      <div class="container header-inner">
-        <a href="#" class="brand">
-          <div class="brand-logo">S</div>
-          <div class="brand-text">
-            <h1>Silver Spoon <span>.Co</span></h1>
-          </div>
-        </a>
-
-        <!-- Desktop search -->
-        <div class="header-search desktop-only">
-          <span class="icon icon-search"></span>
-          <input
-            id="search-input"
-            type="text"
-            placeholder="Search dishes..."
-          />
+    <!-- CART OVERLAY -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <aside id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2 class="font-heading font-bold" style="font-size: 1.25rem;">Your Order</h2>
+            <button id="close-cart" class="icon-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
         </div>
-
-        <div class="header-actions">
-          <button id="dark-toggle" class="icon-btn" aria-label="Toggle dark mode">
-            <span class="icon icon-moon" id="dark-icon"></span>
-          </button>
-
-          <button id="cart-toggle" class="cart-btn" aria-label="Open cart">
-            <span class="icon icon-cart"></span>
-            <span id="cart-count-badge" class="cart-count hidden">0</span>
-          </button>
+        <div id="cart-items-container" class="cart-items">
+            <!-- Items injected here -->
         </div>
-      </div>
-
-      <!-- Mobile search -->
-      <div class="container mobile-only mobile-search">
-        <div class="header-search">
-          <span class="icon icon-search"></span>
-          <input
-            id="search-input-mobile"
-            type="text"
-            placeholder="Search..."
-          />
+        <div class="cart-footer">
+            <div class="coupon-box">
+                <input type="text" id="coupon-input" class="coupon-input" placeholder="Coupon Code">
+                <button id="apply-coupon" class="btn-apply">Apply</button>
+            </div>
+            <p id="coupon-msg" class="text-xs" style="margin-bottom: 0.5rem;"></p>
+            
+            <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">₹0</span></div>
+            <!-- Removed Item Savings Row -->
+            <div id="row-cart-discount" class="summary-row text-green hidden"><span>Cart Offer</span><span id="summary-cart-disc">-₹0</span></div>
+            <div id="row-coupon" class="summary-row text-green hidden"><span>Coupon</span><span id="summary-coupon">-₹0</span></div>
+            <div class="summary-row total-row"><span>Total Payable</span><span id="summary-total">₹0</span></div>
+            
+            <button id="checkout-btn" class="btn-primary" style="width: 100%; margin-top: 1rem;">Checkout</button>
         </div>
-      </div>
+    </aside>
+
+    <!-- DISH DETAIL MODAL -->
+    <div id="modal-overlay" class="modal-overlay-bg">
+        <div class="modal-card">
+            <button id="close-modal" style="position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white; border-radius: 50%; padding: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            <div class="modal-img-col">
+                <img id="modal-img" src="" alt="" class="modal-img">
+                <div style="position: absolute; bottom: 1rem; left: 1rem; display: flex; gap: 0.5rem;">
+                    <span id="modal-veg-badge" class="veg-badge bg-veg"></span>
+                    <span class="veg-badge" style="background: rgba(255,255,255,0.9); color: var(--primary);">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span id="modal-rating"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-content-col">
+                <span id="modal-cat" class="card-cat"></span>
+                <h2 id="modal-title" class="font-heading font-bold" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
+                <p id="modal-desc" class="card-desc" style="-webkit-line-clamp: unset;"></p>
+                
+                <div style="margin: 1.5rem 0;">
+                    <h4 class="font-bold text-sm" style="margin-bottom: 0.5rem;">INGREDIENTS</h4>
+                    <div id="modal-ingredients" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+
+                <div style="background: var(--primary-light); padding: 1rem; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin-bottom: 2rem;">
+                    <h4 class="font-bold text-sm text-primary" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Did you know?
+                    </h4>
+                    <p id="modal-trivia" class="text-sm" style="font-style: italic; margin-top: 0.25rem;"></p>
+                </div>
+
+                <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+                    <div>
+                        <span id="modal-mrp" class="price-orig" style="font-size: 1rem;"></span>
+                        <div id="modal-price" class="price-final" style="font-size: 2rem;"></div>
+                    </div>
+                    <button id="modal-add-btn" class="btn-primary" style="padding: 0.75rem 2rem;">
+                        Add to Order <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="flex items-center gap-2" style="text-decoration: none; color: inherit;">
+                <div class="logo-box">S</div>
+                <div>
+                    <h1 class="font-heading font-bold" style="font-size: 1.5rem;">Silver Spoon <span class="text-primary">.Co</span></h1>
+                </div>
+            </a>
+
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="desktop-search" class="search-input" placeholder="Search dishes...">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="icon-btn">
+                    <!-- Sun/Moon Icon swapped by JS -->
+                    <svg class="sun-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41-1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+                <button id="cart-toggle" class="cart-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <div id="cart-count" class="cart-badge hidden">0</div>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-search">
+            <input type="text" id="mobile-search" class="search-input" placeholder="Search dishes...">
+        </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
-      <div class="hero-blur hero-blur-1 floating-blob"></div>
-      <div class="hero-blur hero-blur-2 floating-blob"></div>
-
-      <div class="container hero-inner">
-        <div class="hero-pill">Award Winning Taste 🏆</div>
-        <h2 class="hero-title">
-          Welcome to <br />
-          <span>Silver Spoon .Co</span>
-        </h2>
-        <p class="hero-subtitle">
-          Experience the finest culinary delights crafted with passion,
-          served with excellence, and delivered with love.
-        </p>
-
-        <div class="hero-tags">
-          <span class="hero-tag">✨ Premium Quality</span>
-          <span class="hero-tag">🚀 Fast Delivery</span>
-          <span class="hero-tag">💰 Best Prices</span>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="pill-badge">Time : 10 am to 11 pm</div>
+            <h1 class="font-heading font-bold" style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
+                Welcome to <br> <span style="background: linear-gradient(to right, #ea580c, #dc2626); -webkit-background-clip: text; color: transparent;">Silver Spoon .Co</span>
+            </h1>
+            <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem;">
+                Experience the finest culinary delights crafted with passion, served with excellence, and delivered with love.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#menu" class="btn-primary" style="text-decoration: none;">Explore Menu</a>
+                <button class="btn-outline">Book a Table</button>
+            </div>
         </div>
-
-        <div class="hero-cta">
-          <a href="#menu-section" class="btn-primary">Explore Menu</a>
-          <button class="btn-outline">Book a Table</button>
-        </div>
-      </div>
     </section>
 
-    <!-- Chef Specials -->
-    <section class="section" id="special-section">
-      <div class="container">
-        <div class="section-header center-text">
-          <div class="section-label">
-            <span class="icon icon-chef"></span>
-            <span>RECOMMENDED</span>
-          </div>
-          <h3 class="section-title">Chef's Special Picks</h3>
-          <p class="section-subtitle">
-            Handpicked favorites recommended by our expert chefs
-            to delight your taste buds.
-          </p>
+    <section style="padding: 4rem 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <div class="flex justify-center gap-2 items-center text-primary font-bold text-sm" style="letter-spacing: 1px; text-transform: uppercase;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" y1="17" x2="18" y2="17"/></svg>
+                    Recommended
+                </div>
+                <h2 class="font-heading font-bold" style="font-size: 2.5rem;">Chef's Special Picks</h2>
+            </div>
+            <div id="specials-grid" class="grid-container">
+                <!-- Specials Injected Here -->
+            </div>
         </div>
-
-        <div id="special-grid" class="cards-grid"></div>
-      </div>
     </section>
 
-    <!-- Full Menu -->
-    <section class="section section-alt" id="menu-section">
-      <div class="container">
-        <div class="section-header center-text">
-          <h3 class="section-title">Our Menu</h3>
-          <p class="section-subtitle">
-            Explore our wide range of delicious dishes.
-          </p>
-        </div>
-
-        <!-- Filter Bar -->
-        <div class="filter-bar">
-          <div class="filter-categories" id="category-pills">
-            <!-- category pills generated by JS -->
-          </div>
-
-          <div class="filter-right">
-            <div class="diet-toggle" id="diet-toggle">
-              <!-- buttons generated by JS -->
+    <section id="menu" style="padding: 4rem 0; background-color: rgba(0,0,0,0.02);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 class="font-heading font-bold" style="font-size: 2.5rem;">Our Menu</h2>
             </div>
 
-            <select id="sort-select" class="sort-select">
-              <option value="popularity">Sort: Popularity</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Rating: High to Low</option>
-            </select>
+            <div class="filters-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <div id="cat-filters" class="filter-cats">
+                        <!-- Category Buttons -->
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-diet="All">All</button>
+                        <button class="toggle-btn" data-diet="Veg">Veg</button>
+                        <button class="toggle-btn" data-diet="Non-Veg">Non-Veg</button>
+                    </div>
 
-            <div class="price-range">
-              <div class="price-range-header">
-                <span>Max Price</span>
-                <span id="price-range-value">₹2500</span>
-              </div>
-              <input
-                id="price-range-input"
-                type="range"
-                min="100"
-                max="2500"
-                step="50"
-                value="2500"
-              />
+                    <select id="sort-select">
+                        <option value="popularity">Sort: Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Rating: High to Low</option>
+                    </select>
+
+                    <div style="display: flex; flex-direction: column; width: 140px;">
+                        <div class="flex justify-between text-xs text-muted" style="margin-bottom: 4px;">
+                            <span>Max Price</span>
+                            <span class="font-bold text-primary">₹<span id="price-val">2500</span></span>
+                        </div>
+                        <input type="range" id="price-range" min="100" max="2500" step="50" value="2500" style="width: 100%; accent-color: var(--primary);">
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Menu Grid -->
-        <div id="menu-grid" class="cards-grid"></div>
-
-        <!-- Empty state -->
-        <div id="menu-empty" class="empty-state hidden">
-          <div class="empty-emoji">🍽️</div>
-          <p class="empty-text">No items found matching your criteria.</p>
-          <button id="clear-filters-btn" class="link-btn">
-            Clear all filters
-          </button>
+            <div id="menu-grid" class="grid-container">
+                <!-- Menu Items Injected Here -->
+            </div>
+            
+            <div id="no-results" class="hidden" style="text-align: center; padding: 4rem; opacity: 0.6;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🍽️</div>
+                <p class="text-xl">No items found matching your criteria.</p>
+                <button id="clear-filters" class="text-primary font-bold" style="margin-top: 1rem; text-decoration: underline;">Clear all filters</button>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- Stats -->
-    <section class="stats">
-      <div class="container stats-grid">
-        <div class="stat-item">
-          <div class="stat-value">50+</div>
-          <div class="stat-label">Dishes</div>
+    <footer style="background: #0f172a; color: #cbd5e1; padding: 4rem 0; border-top: 1px solid #334155;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <div class="flex items-center gap-2" style="margin-bottom: 1.5rem; color: white;">
+                        <div class="logo-box">S</div>
+                        <h3 class="font-heading font-bold" style="font-size: 1.25rem;">Silver Spoon <span class="text-primary">.Co</span></h3>
+                    </div>
+                    <p class="text-sm">Elevating your dining experience with flavors that tell a story.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+                        <li><a href="#" style="color: inherit; text-decoration: none;">Home</a></li>
+                        <li><a href="#menu" style="color: inherit; text-decoration: none;">Menu</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Contact Us</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.875rem;">
+                        <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Park Street, Kolkata</li>
+                        <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> silverspoonco@gmail.com</li>
+                        <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +91 90676 89550</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; font-size: 0.875rem; border-top: 1px solid #334155; padding-top: 2rem;">
+                <p style="margin-bottom: 0.75rem;">&copy; 2025 Silver Spoon .Co. All rights reserved.</p>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+                    Made by 
+                    <a href="https://ankushchowrasia.vercel.app" target="_blank" style="text-decoration: none;">
+                        <button style="border: 1px solid var(--primary); color: var(--primary); background: transparent; padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(234, 88, 12, 0.1)'" onmouseout="this.style.background='transparent'">
+                            Ankush Chowrasia
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">30m</div>
-          <div class="stat-label">Fast Delivery</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">4.9</div>
-          <div class="stat-label">Customer Rating</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">24/7</div>
-          <div class="stat-label">Support</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <div class="brand-logo">S</div>
-            <h4>Silver Spoon <span>.Co</span></h4>
-          </div>
-          <p class="footer-text">
-            Elevating your dining experience with flavors that tell a story.
-            Fresh, Authentic, and Delicious.
-          </p>
-          <div class="footer-social">
-            <a href="#" class="social-circle"><span class="icon icon-fb"></span></a>
-            <a href="#" class="social-circle"><span class="icon icon-twitter"></span></a>
-            <a href="#" class="social-circle"><span class="icon icon-instagram"></span></a>
-          </div>
-        </div>
-
-        <div>
-          <h5 class="footer-heading">Quick Links</h5>
-          <ul class="footer-list">
-            <li><a href="#">Home</a></li>
-            <li><a href="#menu-section">Our Menu</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Book a Table</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h5 class="footer-heading">Contact Us</h5>
-          <ul class="footer-list">
-            <li>
-              <span class="icon icon-pin"></span>
-              <span>Park Street, Kolkata<br/>West Bengal – 700001</span>
-            </li>
-            <li>
-              <span class="icon icon-mail"></span>
-              <span>silverspoonco@gmail.com</span>
-            </li>
-            <li>
-              <span class="icon icon-phone"></span>
-              <span>+91 90676 89550</span>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h5 class="footer-heading">Opening Hours</h5>
-          <ul class="footer-list">
-            <li class="footer-hours">
-              <span>Mon - Fri</span>
-              <span>10:00 AM - 11:00 PM</span>
-            </li>
-            <li class="footer-hours">
-              <span>Sat - Sun</span>
-              <span>09:00 AM - 12:00 AM</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="container footer-bottom-inner">
-          <p>© 2025 Silver Spoon .Co. All rights reserved.</p>
-          <div class="footer-bottom-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-          </div>
-        </div>
-      </div>
     </footer>
-  </div>
 
-  <!-- Scripts -->
-  <script src="app.js"></script>
+    <script>
+        // --- DATA ---
+        const CATEGORIES = ["All", "Starters", "Main Course", "Desserts", "Drinks"];
+
+        const calculateFinalPrice = (mrp, discountPercent) => {
+            return Math.round(mrp - (mrp * discountPercent / 100));
+        };
+
+        const MENU_ITEMS = [
+            {
+                id: 1,
+                name: "Mango Smoothie",
+                description: "Thick & creamy mango smoothie made with fresh Alphonso mangoes.",
+                price: 220,
+                discountPercent: 5,
+                category: "Drinks",
+                image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=600&h=400&fit=crop",
+                isVeg: true,
+                isSpecial: true,
+                rating: 4.8,
+                ingredients: ["Alphonso Mango Pulp", "Yogurt", "Milk", "Honey", "Ice Cubes"],
+                trivia: "Mango is known as the 'King of Fruits' and originated in India over 4,000 years ago."
+            },
+            {
+                id: 2,
+                name: "Paneer Tikka",
+                description: "Marinated cottage cheese skewers grilled to perfection in a tandoor.",
+                price: 360,
+                discountPercent: 8,
+                category: "Starters",
+                image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&h=400&fit=crop",
+                isVeg: true,
+                isSpecial: true,
+                rating: 4.7,
+                ingredients: ["Paneer (Cottage Cheese)", "Yogurt", "Besan (Gram Flour)", "Spices", "Bell Peppers"],
+                trivia: "Paneer Tikka is a vegetarian alternative to Chicken Tikka, popularised in the Punjab region."
+            },
+            {
+                id: 3,
+                name: "Grilled Salmon",
+                description: "Fresh Atlantic salmon grilled with lemon butter and herbs.",
+                price: 850,
+                discountPercent: 10,
+                category: "Main Course",
+                image: "https://images.unsplash.com/photo-1485921325833-c519f76c4927?w=600&h=400&fit=crop",
+                isVeg: false,
+                isSpecial: true,
+                rating: 4.9,
+                ingredients: ["Atlantic Salmon Fillet", "Lemon Juice", "Butter", "Garlic", "Dill"],
+                trivia: "Salmon are anadromous, meaning they are born in fresh water, migrate to the ocean, then return to fresh water to reproduce."
+            },
+            {
+                id: 4,
+                name: "Choco Lava Cake",
+                description: "Rich chocolate cake with a molten goooy chocolate center.",
+                price: 280,
+                discountPercent: 5,
+                category: "Desserts",
+                image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=600&h=400&fit=crop",
+                isVeg: false, 
+                isSpecial: true,
+                rating: 4.9,
+                ingredients: ["Dark Chocolate", "Butter", "Eggs", "Flour", "Sugar"],
+                trivia: "The molten center is achieved by undercooking the cake slightly, not by injecting chocolate."
+            },
+            {
+                id: 5,
+                name: "Butter Chicken",
+                description: "Tender chicken cooked in a rich, creamy tomato and cashew gravy.",
+                price: 580,
+                discountPercent: 10,
+                category: "Main Course",
+                image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&h=400&fit=crop",
+                isVeg: false,
+                isSpecial: false,
+                rating: 4.8,
+                ingredients: ["Chicken", "Tomato Puree", "Cream", "Butter", "Cashew Paste", "Fenugreek Leaves"],
+                trivia: "Butter Chicken was invented by accident in Delhi in the 1950s using leftover tandoori chicken."
+            },
+            {
+                id: 6,
+                name: "Chole Bhature",
+                description: "Spicy chickpea curry served with fluffy fried bread.",
+                price: 260,
+                discountPercent: 5,
+                category: "Main Course",
+                image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&h=400&fit=crop",
+                isVeg: true,
+                isSpecial: false,
+                rating: 4.6,
+                ingredients: ["Chickpeas", "Maida (Flour)", "Onions", "Tomatoes", "Spices"],
+                trivia: "This dish is a breakfast staple in North India, often accompanied by lassi."
+            },
+            {
+                id: 7,
+                name: "Vada Pav",
+                description: "Mumbai's favorite street food - spicy potato fritter in a bun.",
+                price: 90,
+                discountPercent: 6,
+                category: "Starters",
+                image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&h=400&fit=crop",
+                isVeg: true,
+                isSpecial: false,
+                rating: 4.5,
+                ingredients: ["Potatoes", "Gram Flour", "Bread Bun (Pav)", "Green Chilies", "Garlic Chutney"],
+                trivia: "Often called the 'Indian Burger', it was invented in 1966 by a Mumbai mill worker."
+            },
+            {
+                id: 8,
+                name: "Chicken Biryani",
+                description: "Aromatic basmati rice cooked with spices and tender chicken pieces.",
+                price: 650,
+                discountPercent: 10,
+                category: "Main Course",
+                image: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=600&h=400&fit=crop",
+                isVeg: false,
+                isSpecial: false,
+                rating: 4.9,
+                ingredients: ["Basmati Rice", "Chicken", "Saffron", "Fried Onions", "Yogurt", "Mint"],
+                trivia: "The word 'Biryani' is derived from the Persian word 'Birian', which means 'fried before cooking'."
+            }
+        ];
+
+        // --- STATE ---
+        let cart = JSON.parse(localStorage.getItem('silverSpoonCart')) || [];
+        let state = {
+            activeCategory: "All",
+            searchQuery: "",
+            dietFilter: "All",
+            priceRange: 2500,
+            sortOption: "popularity",
+            activeCoupon: null
+        };
+
+        // --- DOM ELEMENTS ---
+        const els = {
+            html: document.documentElement,
+            menuGrid: document.getElementById('menu-grid'),
+            specialsGrid: document.getElementById('specials-grid'),
+            cartSidebar: document.getElementById('cart-sidebar'),
+            cartOverlay: document.getElementById('cart-overlay'),
+            cartItems: document.getElementById('cart-items-container'),
+            cartCount: document.getElementById('cart-count'),
+            themeToggle: document.getElementById('theme-toggle'),
+            modalOverlay: document.getElementById('modal-overlay'),
+            priceVal: document.getElementById('price-val'),
+            noResults: document.getElementById('no-results'),
+            couponInput: document.getElementById('coupon-input'),
+            couponMsg: document.getElementById('coupon-msg')
+        };
+
+        // --- ICONS (SVG Strings) ---
+        const icons = {
+            plus: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`,
+            minus: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>`,
+            trash: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`,
+            info: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+            bag: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+            star: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
+            check: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
+        };
+
+        // --- CORE FUNCTIONS ---
+
+        function init() {
+            renderCategories();
+            renderMenu();
+            renderSpecials();
+            renderCart();
+            setupEventListeners();
+        }
+
+        // Logic Helper
+        function getFilteredItems() {
+            return MENU_ITEMS.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(state.searchQuery.toLowerCase()) || 
+                                      item.description.toLowerCase().includes(state.searchQuery.toLowerCase());
+                const matchesCategory = state.activeCategory === "All" || item.category === state.activeCategory;
+                const matchesDiet = state.dietFilter === "All" || (state.dietFilter === "Veg" ? item.isVeg : !item.isVeg);
+                const discountedPrice = calculateFinalPrice(item.price, item.discountPercent);
+                const matchesPrice = discountedPrice <= state.priceRange;
+
+                return matchesSearch && matchesCategory && matchesDiet && matchesPrice;
+            }).sort((a, b) => {
+                const priceA = calculateFinalPrice(a.price, a.discountPercent);
+                const priceB = calculateFinalPrice(b.price, b.discountPercent);
+                switch(state.sortOption) {
+                    case "price-low": return priceA - priceB;
+                    case "price-high": return priceB - priceA;
+                    case "rating": return b.rating - a.rating;
+                    default: return 0;
+                }
+            });
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('cat-filters');
+            container.innerHTML = CATEGORIES.map(cat => `
+                <button class="cat-btn ${cat === state.activeCategory ? 'active' : ''}" data-cat="${cat}">${cat}</button>
+            `).join('');
+        }
+
+        function createCardHTML(item) {
+            const discountedPrice = calculateFinalPrice(item.price, item.discountPercent);
+            const vegBadgeClass = item.isVeg ? 'bg-veg' : 'bg-nonveg';
+            const vegDotClass = item.isVeg ? 'dot-veg' : 'dot-nonveg';
+            const vegText = item.isVeg ? 'Veg' : 'Non-Veg';
+
+            return `
+            <div class="menu-card">
+                <div class="card-img-wrap">
+                    <img src="${item.image}" alt="${item.name}" class="card-img">
+                    <div class="veg-badge ${vegBadgeClass}">
+                        <div class="dot ${vegDotClass}"></div> ${vegText}
+                    </div>
+                    ${item.discountPercent > 0 ? `<div class="discount-badge">${item.discountPercent}% OFF</div>` : ''}
+                    <div style="position:absolute; bottom:8px; right:8px; background:rgba(255,255,255,0.9); padding:2px 6px; border-radius:12px; font-size:10px; font-weight:bold; display:flex; align-items:center; gap:2px; color:var(--primary);">
+                        ${icons.star} ${item.rating}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-cat">${item.category}</div>
+                    <h3 class="card-title">${item.name}</h3>
+                    <p class="card-desc">${item.description}</p>
+                    <div class="card-footer">
+                        <div>
+                            ${item.discountPercent > 0 ? `<div class="price-orig">MRP ₹${item.price}</div>` : ''}
+                            <div class="price-final">₹${discountedPrice}</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="icon-btn" onclick="openModal(${item.id})" style="border:1px solid var(--border); border-radius:8px;">${icons.info}</button>
+                            <button class="btn-add" onclick="addToCart(${item.id}, event)">Add ${icons.bag}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderMenu() {
+            const items = getFilteredItems();
+            if (items.length === 0) {
+                els.menuGrid.innerHTML = '';
+                els.noResults.classList.remove('hidden');
+            } else {
+                els.noResults.classList.add('hidden');
+                els.menuGrid.innerHTML = items.map(item => createCardHTML(item)).join('');
+            }
+        }
+
+        function renderSpecials() {
+            const specials = MENU_ITEMS.filter(i => i.isSpecial);
+            els.specialsGrid.innerHTML = specials.map(item => createCardHTML(item)).join('');
+        }
+
+        // --- CART LOGIC ---
+
+        function calculateCartTotals() {
+            let grossTotal = 0;
+            let totalSavings = 0;
+
+            cart.forEach(cartItem => {
+                const product = MENU_ITEMS.find(p => p.id === cartItem.id);
+                if (product) {
+                    const unitDiscountedPrice = calculateFinalPrice(product.price, product.discountPercent);
+                    const lineTotal = unitDiscountedPrice * cartItem.qty;
+                    const lineMRP = product.price * cartItem.qty;
+                    grossTotal += lineTotal;
+                    totalSavings += (lineMRP - lineTotal);
+                }
+            });
+
+            // Cart Discount
+            let cartDiscountAmt = 0;
+            if (grossTotal >= 2000) cartDiscountAmt = Math.round(grossTotal * 0.15);
+            else if (grossTotal >= 1000) cartDiscountAmt = Math.round(grossTotal * 0.10);
+
+            // Coupon
+            let couponDiscountAmt = 0;
+            const taxableAmount = grossTotal - cartDiscountAmt;
+            if (state.activeCoupon === 'SILVER10') {
+                couponDiscountAmt = Math.round(taxableAmount * 0.10);
+            } else if (state.activeCoupon === 'FREEDRINK') {
+                const hasMain = cart.some(c => {
+                    const p = MENU_ITEMS.find(i => i.id === c.id);
+                    return p && p.category === 'Main Course';
+                });
+                if (grossTotal >= 100 && hasMain) couponDiscountAmt = 100;
+            }
+
+            const netPayable = Math.max(0, grossTotal - cartDiscountAmt - couponDiscountAmt);
+
+            return { grossTotal, totalSavings, cartDiscountAmt, couponDiscountAmt, netPayable };
+        }
+
+        function renderCart() {
+            // Persist
+            localStorage.setItem('silverSpoonCart', JSON.stringify(cart));
+
+            // Badge
+            const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+            els.cartCount.innerText = totalQty;
+            els.cartCount.classList.toggle('hidden', totalQty === 0);
+
+            // Items
+            if (cart.length === 0) {
+                els.cartItems.innerHTML = `<div style="text-align:center; opacity:0.5; margin-top:2rem;">Your cart is empty.</div>`;
+            } else {
+                els.cartItems.innerHTML = cart.map(cartItem => {
+                    const p = MENU_ITEMS.find(i => i.id === cartItem.id);
+                    const price = calculateFinalPrice(p.price, p.discountPercent);
+                    return `
+                    <div class="cart-item">
+                        <img src="${p.image}" class="cart-img">
+                        <div style="flex:1;">
+                            <h4 class="font-bold text-sm" style="line-height:1.2; margin-bottom:4px;">${p.name}</h4>
+                            <div class="text-xs text-muted" style="margin-bottom:8px;">₹${price} x ${cartItem.qty}</div>
+                            <div class="flex justify-between items-center">
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="updateQty(${p.id}, -1)">${icons.minus}</button>
+                                    <span style="font-size:0.875rem; font-weight:600; width:1rem; text-align:center;">${cartItem.qty}</span>
+                                    <button class="qty-btn" onclick="updateQty(${p.id}, 1)">${icons.plus}</button>
+                                </div>
+                                <button class="icon-btn" style="color:var(--danger);" onclick="removeFromCart(${p.id})">${icons.trash}</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            // Totals
+            const totals = calculateCartTotals();
+            document.getElementById('summary-subtotal').innerText = `₹${totals.grossTotal}`;
+            
+            // Removed Item Savings logic here
+
+            const elCartDisc = document.getElementById('row-cart-discount');
+            elCartDisc.classList.toggle('hidden', totals.cartDiscountAmt === 0);
+            document.getElementById('summary-cart-disc').innerText = `-₹${totals.cartDiscountAmt}`;
+
+            const elCoupon = document.getElementById('row-coupon');
+            elCoupon.classList.toggle('hidden', !state.activeCoupon);
+            document.getElementById('summary-coupon').innerText = `-₹${totals.couponDiscountAmt}`;
+
+            document.getElementById('summary-total').innerText = `₹${totals.netPayable}`;
+        }
+
+        // --- ACTIONS ---
+
+        window.addToCart = (id, event) => {
+            const existing = cart.find(i => i.id === id);
+            if (existing) existing.qty++;
+            else cart.push({ id, qty: 1 });
+            renderCart();
+            // We no longer auto-open cart, instead we trigger animation
+            triggerAnimation(event);
+        };
+
+        function triggerAnimation(e) {
+            if(!e) return;
+            
+            // 1. Floating Badge
+            const el = document.createElement('div');
+            el.className = 'added-feedback';
+            el.innerHTML = `${icons.check} Added!`; 
+            
+            // Position near click
+            el.style.left = `${e.clientX}px`;
+            el.style.top = `${e.clientY - 20}px`;
+            
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 800);
+
+            // 2. Cart Shake
+            const cartBtn = document.getElementById('cart-toggle');
+            cartBtn.classList.remove('cart-shake');
+            void cartBtn.offsetWidth; // Trigger reflow
+            cartBtn.classList.add('cart-shake');
+        }
+
+        window.updateQty = (id, delta) => {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) window.removeFromCart(id);
+                else renderCart();
+            }
+        };
+
+        window.removeFromCart = (id) => {
+            cart = cart.filter(i => i.id !== id);
+            if (cart.length === 0) {
+                state.activeCoupon = null;
+                els.couponMsg.innerText = '';
+                els.couponInput.value = '';
+            }
+            renderCart();
+        };
+
+        window.openModal = (id) => {
+            const item = MENU_ITEMS.find(i => i.id === id);
+            if (!item) return;
+            const price = calculateFinalPrice(item.price, item.discountPercent);
+            
+            document.getElementById('modal-img').src = item.image;
+            document.getElementById('modal-veg-badge').className = `veg-badge ${item.isVeg ? 'bg-veg' : 'bg-nonveg'}`;
+            document.getElementById('modal-veg-badge').innerHTML = `<div class="dot ${item.isVeg ? 'dot-veg' : 'dot-nonveg'}"></div> ${item.isVeg ? 'Veg' : 'Non-Veg'}`;
+            document.getElementById('modal-rating').innerText = item.rating;
+            document.getElementById('modal-cat').innerText = item.category;
+            document.getElementById('modal-title').innerText = item.name;
+            document.getElementById('modal-desc').innerText = item.description;
+            document.getElementById('modal-ingredients').innerHTML = item.ingredients.map(ing => `<span style="background:var(--bg-body); padding:2px 8px; border-radius:4px; border:1px solid var(--border); font-size:0.75rem;">${ing}</span>`).join('');
+            document.getElementById('modal-trivia').innerText = item.trivia;
+            document.getElementById('modal-mrp').innerText = item.discountPercent > 4 ? `MRP ₹${item.price}` : '';
+            document.getElementById('modal-price').innerText = `₹${price}`;
+            
+            // Re-bind add button with event for animation
+            const btn = document.getElementById('modal-add-btn');
+            btn.onclick = (e) => { window.addToCart(id, e); closeModal(); };
+
+            els.modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        function closeModal() {
+            els.modalOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function openCart() {
+            els.cartOverlay.classList.add('open');
+            els.cartSidebar.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            els.cartOverlay.classList.remove('open');
+            els.cartSidebar.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function applyCoupon() {
+            const code = els.couponInput.value.toUpperCase();
+            const { grossTotal } = calculateCartTotals();
+            
+            // Calc cart discount first to check net logic for FREEDRINK
+            let cartDiscountAmt = 0;
+            if (grossTotal >= 2000) cartDiscountAmt = Math.round(grossTotal * 0.15);
+            else if (grossTotal >= 1000) cartDiscountAmt = Math.round(grossTotal * 0.10);
+            
+            let msg = '';
+            let isSuccess = false;
+
+            if (code === 'SILVER10') {
+                state.activeCoupon = 'SILVER10';
+                msg = 'Coupon SILVER10 applied! (10% Extra Off)';
+                isSuccess = true;
+            } else if (code === 'FREEDRINK') {
+                const hasMain = cart.some(c => {
+                    const p = MENU_ITEMS.find(i => i.id === c.id);
+                    return p && p.category === 'Main Course';
+                });
+                if (grossTotal >= 100 && hasMain) {
+                    state.activeCoupon = 'FREEDRINK';
+                    msg = 'Coupon FREEDRINK applied! (₹100 Off)';
+                    isSuccess = true;
+                } else {
+                    msg = 'Requirements: Cart > ₹100 & 1 Main Course.';
+                    state.activeCoupon = null;
+                }
+            } else {
+                msg = 'Invalid Coupon Code';
+                state.activeCoupon = null;
+            }
+
+            els.couponMsg.innerText = msg;
+            els.couponMsg.style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+            renderCart();
+        }
+
+        // --- EVENT LISTENERS ---
+
+        function setupEventListeners() {
+            // Category Filters
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    state.activeCategory = e.target.dataset.cat;
+                    renderMenu();
+                });
+            });
+
+            // Diet Toggle
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    state.dietFilter = e.target.dataset.diet;
+                    renderMenu();
+                });
+            });
+
+            // Sort
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                state.sortOption = e.target.value;
+                renderMenu();
+            });
+
+            // Price Slider
+            const range = document.getElementById('price-range');
+            range.addEventListener('input', (e) => {
+                state.priceRange = Number(e.target.value);
+                els.priceVal.innerText = state.priceRange;
+                renderMenu();
+            });
+
+            // Search
+            const handleSearch = (e) => {
+                state.searchQuery = e.target.value;
+                renderMenu();
+            };
+            document.getElementById('desktop-search').addEventListener('input', handleSearch);
+            document.getElementById('mobile-search').addEventListener('input', handleSearch);
+            document.getElementById('clear-filters').addEventListener('click', () => {
+                state.searchQuery = "";
+                state.activeCategory = "All";
+                state.dietFilter = "All";
+                state.priceRange = 2500;
+                // Reset UI
+                document.getElementById('desktop-search').value = "";
+                document.getElementById('mobile-search').value = "";
+                document.getElementById('price-range').value = 2500;
+                els.priceVal.innerText = 2500;
+                renderCategories(); // Reset cat buttons
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.diet === 'All'));
+                renderMenu();
+            });
+
+            // Cart & Modal Toggles
+            document.getElementById('cart-toggle').addEventListener('click', openCart);
+            document.getElementById('close-cart').addEventListener('click', closeCart);
+            els.cartOverlay.addEventListener('click', closeCart);
+            
+            document.getElementById('close-modal').addEventListener('click', closeModal);
+            els.modalOverlay.addEventListener('click', (e) => {
+                if(e.target === els.modalOverlay) closeModal();
+            });
+
+            // Coupon
+            document.getElementById('apply-coupon').addEventListener('click', applyCoupon);
+
+            // Dark Mode
+            els.themeToggle.addEventListener('click', () => {
+                els.html.classList.toggle('dark');
+                const isDark = els.html.classList.contains('dark');
+                els.themeToggle.querySelector('.sun-icon').classList.toggle('hidden', !isDark);
+                els.themeToggle.querySelector('.moon-icon').classList.toggle('hidden', isDark);
+            });
+
+            // Checkout
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                if(cart.length === 0) return;
+                alert("Proceeding to Checkout!");
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
 </body>
 </html>
