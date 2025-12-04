@@ -19,7 +19,6 @@
 # 📑 Table of Contents
 - [✨ Features](#-features)
 - [🎯 Why This Project Stands Out](#-why-this-project-stands-out)
-- [🖼️ Screenshots](#️-screenshots)
 - [🛠️ Technologies](#️-technologies)
 - [📦 Installation](#-installation)
 - [📖 Usage](#-usage)
@@ -93,20 +92,6 @@ No frameworks — everything built with optimized Vanilla JS.
 
 ### ✔ Perfect for competitions  
 Works across devices, includes advanced features, and showcases both design & coding skills.
-
----
-
-# 🖼️ Screenshots
-
-> Upload real screenshots in `/screenshots/` and replace these placeholders.
-
-| Home Page | Menu | Cart |
-|----------|------|------|
-| ![Home](https://via.placeholder.com/400x250?text=Home) | ![Menu](https://via.placeholder.com/400x250?text=Menu) | ![Cart](https://via.placeholder.com/400x250?text=Cart) |
-
-| Checkout | Table Booking | Mobile View |
-|----------|--------------|--------------|
-| ![Checkout](https://via.placeholder.com/400x250?text=Checkout) | ![Booking](https://via.placeholder.com/400x250?text=Table+Booking) | ![Mobile](https://via.placeholder.com/400x250?text=Mobile+View) |
 
 ---
 
