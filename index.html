@@ -304,7 +304,15 @@
 
         /* --- GRID & CARDS --- */
         .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr; /* Mobile: 1 card per row */
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr); /* Tablet & Desktop: 2 cards per row */
+            }
         }
 
         .menu-card {
