@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silver Spoon .Co | Fine Dining</title>
+    <title>Silver Spoon . Co | Restaurant</title>
     <link rel="icon" href="https://raw.githubusercontent.com/ankushchowrasia16/Silverspoon.co-restaurant/b38e5d5cb3f1ab03df211b677de5a6ce902e3338/silverspoon.cofavicon.png">
     
     <!-- Fonts -->
@@ -223,22 +223,6 @@
             margin-top: 3.5rem;
         }
         
-        /* Tablet Layout */
-        @media (max-width: 1023px) {
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr); /* Tablet: 2 cards per row */
-            }
-        }
-
-        /* Mobile Layout */
-        @media (max-width: 767px) {
-            .features-grid {
-                grid-template-columns: 1fr; /* Mobile: 1 card per row */
-                gap: 1rem;
-                margin-top: 2rem;
-            }
-        }
-        
         .feature-card {
             background: var(--bg-card);
             padding: 2rem 1.5rem;
@@ -437,20 +421,21 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.5rem; /* Increased slightly for the new font */
             border-bottom: 1px solid var(--border);
             transition: color 0.2s;
             background: none;
             text-align: left;
             width: 100%;
             cursor: pointer;
+            font-family: var(--font-heading); /* Changed to Cormorant Garamond */
         }
         .nav-item-btn:hover {
             color: var(--primary);
             background: var(--bg-body);
         }
 
-        /* --- BOOKING & CHECKOUT PAGES --- */
+        /* --- BOOKING & CHECKOUT & FAQ & TERMS PAGES --- */
         .booking-page {
             position: fixed; inset: 0; background: var(--bg-body); z-index: 80;
             overflow-y: auto; padding: 2rem;
@@ -462,6 +447,36 @@
         .form-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); }
         .form-row { display: flex; gap: 1rem; }
         .form-row .form-group { flex: 1; }
+
+        /* TERMS SPECIFIC STYLES */
+        .terms-container { max-width: 900px; margin: 0 auto; padding-bottom: 4rem; }
+        .terms-section { margin-bottom: 2rem; }
+        .terms-section h3 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; font-family: var(--font-heading); }
+        .terms-section p, .terms-section ul { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+        .terms-section ul { list-style-type: disc; padding-left: 1.5rem; }
+
+        /* FAQ SPECIFIC STYLES */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-header { text-align: center; margin-bottom: 3rem; }
+        .faq-title { font-size: 2.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+        .faq-subtitle { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .faq-item {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1rem;
+            overflow: hidden; transition: all 0.3s;
+        }
+        .faq-item:hover { border-color: var(--primary); }
+        .faq-question {
+            padding: 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; font-size: 1.1rem; color: var(--text-main);
+        }
+        .faq-icon { transition: transform 0.3s; color: var(--primary); }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        .faq-answer {
+            padding: 0 1.25rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s;
+            color: var(--text-muted); line-height: 1.6;
+        }
+        .faq-item.active .faq-answer { padding: 0 1.25rem 1.25rem; max-height: 200px; }
         
         /* Success Popup */
         .success-popup {
@@ -608,6 +623,189 @@
     </style>
 </head>
 <body>
+
+    <!-- TERMS & CONDITIONS PAGE (Hidden by default) -->
+    <div id="terms-page" class="booking-page hidden" style="background-color: var(--bg-body); z-index: 100;">
+        <div style="padding-top: 1rem; padding-left: 1rem;">
+             <button id="btn-back-home-terms" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Back to Home
+            </button>
+        </div>
+        <div class="terms-container" style="padding: 2rem;">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="font-heading" style="font-size: 2.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Terms & Conditions</h2>
+                <div style="height: 4px; width: 60px; background: var(--primary); margin: 1rem auto 0; border-radius: 2px; opacity: 0.7;"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="terms-section">
+                <h3>Section 1 — Introduction</h3>
+                <p>Welcome to Silver Spoon .Co. By accessing or using this website, you agree to the Terms & Conditions mentioned below. Please read them carefully before placing an order or booking a table.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 2 — General Usage</h3>
+                <p>This website is intended for informational and ordering purposes only. All users must provide accurate personal information while booking or ordering. Misuse of the website or fraudulent activity is strictly prohibited.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 3 — Menu & Pricing</h3>
+                <p>Prices shown on the website may change without prior notice. Discounts, offers, and coupons are applicable only when valid at the time of order. Images of dishes are for representation and may vary from the actual item.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 4 — Orders & Payments</h3>
+                <p>All orders placed through our website are subject to acceptance and availability. We reserve the right to cancel or refuse an order if suspicious activity is detected. Payment must be completed through accepted methods only.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 5 — Table Booking Policy</h3>
+                <p>Reservations must contain accurate date, time, and contact details. We may cancel a reservation if the user does not arrive within 15 minutes of the booked slot. Any cancellation must be made at least 1 hour before the reservation time.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 6 — Cancellation & Refunds</h3>
+                <p>Food orders once prepared cannot be cancelled. Refunds are processed only in cases of payment failure or duplicate transactions. Table bookings are non-refundable but can be rescheduled when possible.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 7 — User Responsibilities</h3>
+                <p>Users must:</p>
+                <ul>
+                    <li>Provide accurate information</li>
+                    <li>Not misuse the site</li>
+                    <li>Not attempt hacking, scraping, or spamming</li>
+                    <li>Respect restaurant policies</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 8 — Privacy Assurance</h3>
+                <p>We do not share customer information with third parties, except for delivery or legal requirements.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 9 — Changes to Terms</h3>
+                <p>Silver Spoon .Co reserves the right to modify, update, or change these terms at any time. Users are advised to review this page regularly.</p>
+            </div>
+
+            <div class="terms-section">
+                <h3>Section 10 — Contact Information</h3>
+                <p>For any concerns related to these Terms & Conditions, kindly use the Contact Us section on the website.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FAQ PAGE (Hidden by default) -->
+    <div id="faq-page" class="booking-page hidden" style="background-color: var(--bg-body); z-index: 100;">
+        <!-- Moved Back to Home Button to Top Left -->
+        <div style="padding-top: 1rem; padding-left: 1rem;">
+            <button id="btn-back-home-faq" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Back to Home
+            </button>
+        </div>
+        
+        <div class="faq-container" style="padding-bottom: 4rem;">
+            <div class="faq-header">
+                <h2 class="font-heading faq-title">Frequently Asked Questions (FAQ)</h2>
+                <p class="faq-subtitle">Find answers to common questions about our food, booking, delivery, and services.</p>
+                <div style="height: 4px; width: 60px; background: var(--primary); margin: 1.5rem auto 0; border-radius: 2px; opacity: 0.7;"></div>
+            </div>
+
+            <div class="faq-list">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are your opening hours?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        We are open every day from 10:00 AM to 11:00 PM, including weekends and holidays.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer home delivery?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we offer fast and safe home delivery within city limits.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I book a table?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        You can book a table directly through our “Book a Table” section in the website.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is outside food allowed inside the restaurant?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        No, outside food or beverages are not allowed.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you serve vegetarian and non-vegetarian dishes?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we provide both Veg and Non-Veg options clearly marked on every dish.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you host birthday or group celebrations?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, special arrangements can be made. Contact us for details.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you have online payment options?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we support all major online payment methods.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I cancel my table reservation?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, cancellations are allowed up to 1 hour before the booked time.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Removed bottom button -->
+        </div>
+    </div>
 
     <!-- CHECKOUT PAGE -->
     <div id="checkout-page" class="booking-page hidden">
@@ -764,6 +962,10 @@
             <a href="#about" class="nav-item-btn">About Us</a>
             <a href="#menu" class="nav-item-btn">Our Menu</a>
             <button id="mobile-book-btn" class="nav-item-btn">Book a Table</button>
+            <!-- Added FAQ link in Mobile Menu -->
+            <button id="mobile-faq-btn" class="nav-item-btn">FAQ</button>
+            <!-- Added Terms link in Mobile Menu -->
+            <button id="mobile-terms-btn" class="nav-item-btn">Terms & Conditions</button>
         </div>
     </aside>
 
@@ -978,7 +1180,7 @@
                         <div class="logo-box">S</div>
                         <h3 class="font-heading font-bold" style="font-size: 1.25rem;">Silver Spoon <span class="text-primary">.Co</span></h3>
                     </div>
-                    <p class="text-sm" style="margin-bottom: 1.5rem;">Elevating your dining experience with flavors that tell a story.</p>
+                    <p class="text-sm" style="margin-bottom: 1.5rem; font-family: 'Times New Roman', serif;">Elevating your dining experience with flavors that tell a story.</p>
                     
                     <!-- Social Media Links -->
                     <div style="display: flex; gap: 0.75rem;">
@@ -994,17 +1196,21 @@
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Quick Links</h4>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem; font-family: 'Times New Roman', serif;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; font-family: 'Times New Roman', serif;">
                         <li><a href="#" style="color: inherit; text-decoration: none;">Home</a></li>
                         <li><a href="#about" style="color: inherit; text-decoration: none;">About Us</a></li>
                         <li><a href="#menu" style="color: inherit; text-decoration: none;">Menu</a></li>
                         <li><a href="#" id="footer-book-btn" style="color: inherit; text-decoration: none;">Book a Table</a></li>
+                        <!-- Added FAQ link to Footer -->
+                        <li><a href="#" id="footer-faq-btn" style="color: inherit; text-decoration: none;">FAQ</a></li>
+                        <!-- Added Terms link to Footer -->
+                        <li><a href="#" id="footer-terms-btn" style="color: inherit; text-decoration: none;">Terms & Conditions</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem;">Contact Us</h4>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.875rem;">
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 1rem; font-family: 'Times New Roman', serif;">Contact Us</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.875rem; font-family: 'Times New Roman', serif;">
                         <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Park Street, Kolkata</li>
                         <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> silverspoonco@gmail.com</li>
                         <li class="flex gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +91 90676 89550</li>
@@ -1440,8 +1646,12 @@
             const price = calculateFinalPrice(item.price, item.discountPercent);
             
             document.getElementById('modal-img').src = item.image;
-            document.getElementById('modal-veg-badge').className = `veg-badge ${item.isVeg ? 'bg-veg' : 'bg-nonveg'}`;
-            document.getElementById('modal-veg-badge').innerHTML = `<div class="dot ${item.isVeg ? 'dot-veg' : 'dot-nonveg'}"></div> ${item.isVeg ? 'Veg' : 'Non-Veg'}`;
+            
+            // Update Logic for badges in new location
+            const vegBadge = document.getElementById('modal-veg-badge');
+            vegBadge.className = `veg-badge ${item.isVeg ? 'bg-veg' : 'bg-nonveg'}`;
+            vegBadge.innerHTML = `<div class="dot ${item.isVeg ? 'dot-veg' : 'dot-nonveg'}"></div> ${item.isVeg ? 'Veg' : 'Non-Veg'}`;
+            
             document.getElementById('modal-rating').innerText = item.rating;
             document.getElementById('modal-cat').innerText = item.category;
             document.getElementById('modal-title').innerText = item.name;
@@ -1618,6 +1828,75 @@
             }
         }
 
+        // --- FAQ LOGIC ---
+        function setupFAQ() {
+            const footerBtn = document.getElementById('footer-faq-btn');
+            const mobileBtn = document.getElementById('mobile-faq-btn');
+            const page = document.getElementById('faq-page');
+            const btnBack = document.getElementById('btn-back-home-faq');
+
+            const openFAQ = (e) => {
+                if(e) e.preventDefault();
+                page.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                if(document.getElementById('mobile-menu-sidebar').classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            };
+
+            const closeFAQ = () => {
+                page.classList.add('hidden');
+                document.body.style.overflow = '';
+            };
+
+            if(footerBtn) footerBtn.addEventListener('click', openFAQ);
+            if(mobileBtn) mobileBtn.addEventListener('click', openFAQ);
+            if(btnBack) btnBack.addEventListener('click', closeFAQ);
+
+            // Accordion Logic
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all
+                    items.forEach(i => i.classList.remove('active'));
+
+                    // Toggle current
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // --- TERMS LOGIC ---
+        function setupTerms() {
+            const footerBtn = document.getElementById('footer-terms-btn');
+            const mobileBtn = document.getElementById('mobile-terms-btn');
+            const page = document.getElementById('terms-page');
+            const btnBack = document.getElementById('btn-back-home-terms');
+
+            const openTerms = (e) => {
+                if(e) e.preventDefault();
+                page.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                if(document.getElementById('mobile-menu-sidebar').classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            };
+
+            const closeTerms = () => {
+                page.classList.add('hidden');
+                document.body.style.overflow = '';
+            };
+
+            if(footerBtn) footerBtn.addEventListener('click', openTerms);
+            if(mobileBtn) mobileBtn.addEventListener('click', openTerms);
+            if(btnBack) btnBack.addEventListener('click', closeTerms);
+        }
+
         // --- MOBILE MENU LOGIC ---
         function setupMobileMenu() {
             const btnMenu = document.getElementById('menu-toggle');
@@ -1660,6 +1939,8 @@
             setupBooking();
             setupCheckout();
             setupMobileMenu();
+            setupFAQ();
+            setupTerms();
 
             // Category Filters
             document.querySelectorAll('.cat-btn').forEach(btn => {
