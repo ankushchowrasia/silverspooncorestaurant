@@ -354,6 +354,107 @@
         .compare-table th { background: var(--bg-body); width: 20%; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
         .compare-table td { width: 40%; color: var(--text-main); font-size: 0.95rem; }
         .compare-img { width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem; }
+
+        /* --- REDESIGNED ORDER & RESERVATION CARDS --- */
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
+        }
+        .order-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 4px 0 0 4px;
+        }
+        .order-header-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .order-id-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+        .order-date-modern {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .info-row-modern {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .info-icon {
+            color: var(--primary);
+            width: 1.1rem;
+            height: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .info-text-primary {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .order-items-box {
+            background: var(--bg-body);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.25rem 0;
+            border: 1px solid var(--border);
+        }
+        .item-row-modern {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+        .item-row-modern:last-child { margin-bottom: 0; }
+        .item-name { font-weight: 500; }
+        .item-qty { color: var(--text-muted); font-size: 0.85rem; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; margin-left: 0.5rem; }
+        .total-row-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+        }
+        .total-label { font-size: 1rem; color: var(--text-muted); font-weight: 600; }
+        .total-amount { font-size: 1.6rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading); }
     </style>
 </head>
 <body>
@@ -383,9 +484,11 @@
                     <h2 class="font-heading" style="font-size: 2.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Orders & Reservations</h2>
                     <div style="height: 4px; width: 60px; background: var(--primary); margin: 1rem auto 0; border-radius: 2px; opacity: 0.7;"></div>
                 </div>
-                <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main);">Your Orders</h3>
-                <div id="orders-list" style="margin-bottom: 3rem;"></div>
-                <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main);">Your Reservations</h3>
+                
+                <h3 class="font-heading" style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 1rem;">Your Orders</h3>
+                <div id="orders-list" style="margin-bottom: 4rem;"></div>
+                
+                <h3 class="font-heading" style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 1rem; margin-top: 2rem;">Your Reservations</h3>
                 <div id="reservations-list"></div>
             </div>
         </div>
@@ -820,7 +923,80 @@
         function renderMenu(){const items=getFilteredItems();if(items.length===0){els.menuGrid.innerHTML='';els.noResults.classList.remove('hidden');}else{els.noResults.classList.add('hidden');els.menuGrid.innerHTML=items.map(item=>createCardHTML(item)).join('');}}
         function renderSpecials(){const s=MENU_ITEMS.filter(i=>i.isSpecial);els.specialsGrid.innerHTML=s.map(item=>createCardHTML(item)).join('');}
 
-        function renderOrdersAndReservations(){const oh=JSON.parse(localStorage.getItem("orderHistory"))||[];const rh=JSON.parse(localStorage.getItem("reservationHistory"))||[];const ol=document.getElementById('orders-list');const rl=document.getElementById('reservations-list');if(oh.length===0){ol.innerHTML='<p style="text-align:center; color:var(--text-muted);">You have no past orders.</p>';}else{ol.innerHTML=oh.map(o=>{const i=o.items.map(x=>{const p=MENU_ITEMS.find(y=>y.id===x.id);return `<div class="order-item-row"><span>${p?p.name:'Item'} x ${x.qty}</span></div>`;}).join('');return `<div class="order-card"><div class="order-header"><span class="order-id">#${o.id}</span><span class="order-date">${o.date}</span></div><div style="margin-bottom: 0.5rem;"><strong>To:</strong> ${o.name} (${o.phone})</div><div style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">${o.address}</div>${i}<div class="order-total">Total: ₹${o.total}</div></div>`;}).join('');}if(rh.length===0){rl.innerHTML='<p style="text-align:center; color:var(--text-muted);">You have no past reservations.</p>';}else{rl.innerHTML=rh.map(r=>`<div class="order-card"><div class="order-header"><span class="order-id">#${r.id}</span><span class="order-date">Booked: ${r.date}</span></div><div style="margin-bottom: 0.5rem;"><strong>Name:</strong> ${r.name}</div><div style="margin-bottom: 0.5rem;"><strong>For:</strong> ${r.resDate} at ${r.resTime}</div><div style="margin-bottom: 0.5rem;"><strong>Guests:</strong> ${r.people} People</div><div style="color: var(--text-muted); font-size: 0.9rem;">Contact: ${r.phone}</div></div>`).join('');}}
+        function renderOrdersAndReservations(){
+            const oh = JSON.parse(localStorage.getItem("orderHistory")) || [];
+            const rh = JSON.parse(localStorage.getItem("reservationHistory")) || [];
+            const ol = document.getElementById('orders-list');
+            const rl = document.getElementById('reservations-list');
+
+            // SVG Icons for the redesigned cards
+            const iUser = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
+            const iPhone = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`;
+            const iPin = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`;
+            const iCal = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+            const iClock = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`;
+            const iGuests = `<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`;
+            const iHash = `<svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>`;
+
+            // RENDER ORDERS
+            if (oh.length === 0) {
+                ol.innerHTML = '<div style="text-align:center; padding: 3rem; background: var(--bg-card); border-radius: 1rem; border: 1px dashed var(--border);"><p style="color:var(--text-muted); margin-bottom:1rem;">You have no past orders.</p><button onclick="document.getElementById(\'orders-page\').classList.add(\'hidden\'); document.body.style.overflow=\'\';" class="btn-primary">Order Now</button></div>';
+            } else {
+                ol.innerHTML = oh.map(o => {
+                    const itemsHtml = o.items.map(x => {
+                        const p = MENU_ITEMS.find(y => y.id === x.id);
+                        return `
+                            <div class="item-row-modern">
+                                <span class="item-name"><span style="color:var(--primary);">•</span> ${p ? p.name : 'Unknown Item'} <span class="item-qty">x${x.qty}</span></span>
+                                <span>₹${p ? calculateFinalPrice(p.price, p.discountPercent) * x.qty : 0}</span>
+                            </div>`;
+                    }).join('');
+
+                    return `
+                        <div class="order-card">
+                            <div class="order-header-modern">
+                                <div class="order-id-badge">${iHash} Order #${o.id.substring(1, 8).toUpperCase()}</div>
+                                <div class="order-date-modern">${iCal} ${o.date}</div>
+                            </div>
+                            <div class="info-row-modern">${iUser} <div><span class="info-text-primary">${o.name}</span> <span style="font-size:0.85rem; opacity:0.8;">(${o.phone})</span></div></div>
+                            <div class="info-row-modern">${iPin} <div>${o.address}</div></div>
+                            
+                            <div class="order-items-box">
+                                ${itemsHtml}
+                            </div>
+                            
+                            <div class="total-row-modern">
+                                <span class="total-label">Total Amount Paid</span>
+                                <span class="total-amount">₹${o.total}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // RENDER RESERVATIONS
+            if (rh.length === 0) {
+                rl.innerHTML = '<div style="text-align:center; padding: 3rem; background: var(--bg-card); border-radius: 1rem; border: 1px dashed var(--border);"><p style="color:var(--text-muted); margin-bottom:1rem;">You have no active reservations.</p><button onclick="document.getElementById(\'orders-page\').classList.add(\'hidden\'); document.getElementById(\'booking-page\').classList.remove(\'hidden\');" class="btn-outline">Book a Table</button></div>';
+            } else {
+                rl.innerHTML = rh.map(r => `
+                    <div class="order-card">
+                        <div class="order-header-modern">
+                            <div class="order-id-badge" style="background:#dcfce7; color:#16a34a;">${iHash} Res #${r.id.substring(1, 8).toUpperCase()}</div>
+                            <div class="order-date-modern" style="color:var(--success); font-weight:600;">Confirmed</div>
+                        </div>
+                        
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="info-row-modern" style="margin-bottom:0;">${iCal} <div><div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;">Date</div><span class="info-text-primary">${r.resDate}</span></div></div>
+                            <div class="info-row-modern" style="margin-bottom:0;">${iClock} <div><div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;">Time</div><span class="info-text-primary">${r.resTime}</span></div></div>
+                        </div>
+
+                        <div class="info-row-modern">${iUser} <div><span class="info-text-primary">${r.name}</span></div></div>
+                        <div class="info-row-modern">${iPhone} <div>${r.phone}</div></div>
+                        <div class="info-row-modern">${iGuests} <div><span class="info-text-primary">${r.people} Guests</span> Table Reserved</div></div>
+                    </div>
+                `).join('');
+            }
+        }
 
         function calculateCartTotals(){let gt=0,ts=0;cart.forEach(ci=>{const p=MENU_ITEMS.find(x=>x.id===ci.id);if(p){const up=calculateFinalPrice(p.price,p.discountPercent);gt+=up*ci.qty;ts+=(p.price*ci.qty)-(up*ci.qty);}});let cda=0;if(gt>=2000)cda=Math.round(gt*0.15);else if(gt>=1000)cda=Math.round(gt*0.10);let cpda=0;const ta=gt-cda;if(state.activeCoupon==='SILVER10')cpda=Math.round(ta*0.10);else if(state.activeCoupon==='FREEDRINK'){const hm=cart.some(c=>{const p=MENU_ITEMS.find(i=>i.id===c.id);return p&&p.category==='Main Course';});if(gt>=100&&hm)cpda=100;}const np=Math.max(0,gt-cda-cpda);return{grossTotal:gt,totalSavings:ts,cartDiscountAmt:cda,couponDiscountAmt:cpda,netPayable:np};}
 
