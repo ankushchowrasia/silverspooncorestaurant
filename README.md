@@ -162,7 +162,7 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 <br>
 
-[![Open Live Demo](https://img.shields.io/badge/🚀_Launch_Application-FF6B35?style=for-the-badge&logoColor=white)](https://silverspoon.co)
+[![Open Live Demo](https://img.shields.io/badge/🚀_Launch_Application-FF6B35?style=for-the-badge&logoColor=white)]((https://silverspoonco.vercel.app/))
 
 <br>
 
