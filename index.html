@@ -128,7 +128,22 @@
             66% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.95); }
             100% { transform: translate(0, 0) rotate(0deg) scale(1); }
         }
-        .hero-particles { position: absolute; width: 180px; height: 350px; overflow: hidden; pointer-events: none; }
+        
+        /* Updated: Responsive Particle Container Size */
+        .hero-particles { 
+            position: absolute; 
+            width: 450px; /* Larger area for PC */
+            height: 450px; 
+            overflow: hidden; 
+            pointer-events: none; 
+        }
+        @media (max-width: 768px) {
+            .hero-particles {
+                width: 160px; /* Compact area for Mobile */
+                height: 250px;
+            }
+        }
+
         .particles-bottom-right { bottom: 0; right: 0; }
         .particle { position: absolute; background-color: var(--primary); border-radius: 50%; opacity: 0; animation: floatParticle 5s infinite ease-in-out; }
         @keyframes floatParticle {
