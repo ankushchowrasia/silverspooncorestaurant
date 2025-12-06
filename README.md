@@ -37,13 +37,14 @@
 ![Screenshot](https://drive.google.com/uc?export=view&id=1j0qsW2e1j8Fsnx1tel4lhUyBtHWY6c9k)
 
 ### 🍽️ Desktop Menu System
-<img width="1898" height="1078" alt="Screenshot 2025-12-06 202112" src="https://github.com/user-attachments/assets/206bbcad-f6c9-4e68-8892-0420ba94a7ae" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1f8FRBrVfhV47qf8sh0VCKcQjTRgp3Ql5)
 
 ### 📋 Desktop Dish Details Modal
-<img width="1919" height="1079" alt="Screenshot 2025-12-06 202257" src="https://github.com/user-attachments/assets/7ce13501-8fd1-4008-ad41-5671adf47583" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1eYlXI1wGmmHSyAIcCPYVmcWML-FB6jY_)
 
 ### 🛒 Desktop Cart System
-<img width="1919" height="1079" alt="Screenshot 2025-12-06 202402" src="https://github.com/user-attachments/assets/2fb039da-4dcf-4f05-8f39-057b44df9a58" />
+![Screenshot](https://drive.google.com/uc?export=view&id=11chz7RpRmmnPYAUCfM2XmobOHPMXtvSy)
+
 
 </details>
 
@@ -51,16 +52,18 @@
 <summary>📱 Mobile Views</summary>
 
 ### 🏠 Mobile Homepage
-<img width="1170" height="2532" alt="silverspoonco vercel app_(iPhone 12 Pro)" src="https://github.com/user-attachments/assets/cf13d454-93cd-4c91-969a-c599d49e98bc" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1PeaeCZxofg9odmOm-4Rmrt3f54Lep3MQ)
+
 
 ### 🍽️ Mobile Menu
-<img width="1170" height="2532" alt="silverspoonco vercel app_(iPhone 12 Pro) (1)" src="https://github.com/user-attachments/assets/883b7f48-23fa-4add-95d1-626f0ebb6ae3" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1KMVal-JX5nrtySdHCiMpleyqNTzxwL2K)
 
 ### 📋 Mobile Dish Details Modal
-<img width="1170" height="2532" alt="silverspoonco vercel app_(iPhone 12 Pro) (2)" src="https://github.com/user-attachments/assets/65ebae02-abd5-4c9e-9917-5c1f9caa2c7e" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1jcMBBvSQoM7-cZRKwa7UOPiU7JQHoxJI)
+
 
 ### 🛒 Mobile Cart System
-<img width="1170" height="2532" alt="silverspoonco vercel app_(iPhone 12 Pro) (3)" src="https://github.com/user-attachments/assets/8dfa4f1e-8697-4027-9fde-b3c916526522" />
+![Screenshot](https://drive.google.com/uc?export=view&id=1Tt738m5PU9y9i8YXkyLjoCYWK3HrRHtK)
 
 </details>
 
