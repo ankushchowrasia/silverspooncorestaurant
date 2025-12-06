@@ -34,7 +34,7 @@
 <summary>🖥️ Desktop Views</summary>
 
 ### 🏠 Desktop Hero Section
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/913d49b7-afaa-4d51-80d6-02a4e0e380ce" />
+<img width="1919" height="1079" alt="image" src="https://drive.google.com/file/d/1j0qsW2e1j8Fsnx1tel4lhUyBtHWY6c9k/view?usp=drivesdk />
 
 ### 🍽️ Desktop Menu System
 <img width="1898" height="1078" alt="Screenshot 2025-12-06 202112" src="https://github.com/user-attachments/assets/206bbcad-f6c9-4e68-8892-0420ba94a7ae" />
